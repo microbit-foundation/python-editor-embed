@@ -8,7 +8,7 @@ export interface EditorProps {
   hideMenu?: boolean;
   lang?: string;
   version?: string;
-  controller?: boolean | 1 | 2;
+  controller?: 1 | 2;
   style?: React.CSSProperties;
   queryParams?: Record<string, string>;
   baseUrl?: string;
@@ -96,7 +96,7 @@ export type Props = {
   version?: string;
   // Editor config params used in url
   hideMenu?: boolean;
-  controller?: boolean | 1 | 2;
+  controller?: 1 | 2;
   lang?: string;
   queryParams?: Record<string, string>;
   baseUrl?: string;

@@ -1,10 +1,9 @@
 import React from 'react';
 import withEditorInterface, { EditorProps } from './withEditorInterface';
-import { generateUrlWithQueryParams } from './common';
 
 const testSelector = 'python-editor-frame';
 
-const pythonEditorUrl = (version: string) => {
+const getPythonEditorBaseUrl = (version: string) => {
   const parts = version.split('.');
   if (parts[0] === '0' || parts[0] === '1' || parts[0] === '2') {
     // Legacy version requiring the per version deployment.
@@ -12,6 +11,27 @@ const pythonEditorUrl = (version: string) => {
     return `https://python-editor-${versionPart}.microbit.org`;
   }
   return `https://python.microbit.org/v/${version}`;
+};
+
+const createPythonEditorURL = (
+  version: string,
+  lang: string | undefined,
+  controller: number | undefined,
+  queryParams: Record<string, string> | undefined
+) => {
+  const url = new URL(getPythonEditorBaseUrl(version));
+  if (lang) {
+    url.searchParams.set('l', lang);
+  }
+  if (controller) {
+    url.searchParams.set('controller', controller.toString());
+  }
+  if (queryParams) {
+    for (const [k, v] of Object.entries(queryParams)) {
+      url.searchParams.set(k, v);
+    }
+  }
+  return url.toString();
 };
 
 const styles: Record<string, React.CSSProperties> = {
@@ -31,7 +51,7 @@ const PythonEditor = ({
   editorRef,
   lang,
   version = '3',
-  controller = true,
+  controller = 1,
   style,
   queryParams,
 }: EditorProps) => (
@@ -40,14 +60,7 @@ const PythonEditor = ({
       ref={editorRef}
       data-testid={testSelector}
       title="Python editor"
-      src={
-        url ||
-        generateUrlWithQueryParams(pythonEditorUrl(version), {
-          l: lang,
-          controller,
-          ...queryParams,
-        })
-      }
+      src={url || createPythonEditorURL(version, lang, controller, queryParams)}
       style={styles.iframe}
       allow="usb; clipboard-read; clipboard-write"
     />
