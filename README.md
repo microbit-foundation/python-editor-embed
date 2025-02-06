@@ -1,6 +1,7 @@
 # Python Editor Embed
 
-<a href="https://microbit-foundation.github.io/python-editor-embed/" class="typedoc-ignore">This documentation is best viewed on the documentation site rather than GitHub or NPM package site.</a>
+<!-- TODO: Add TypeDoc documentation and add build workflow -->
+<!-- <a href="https://microbit-foundation.github.io/python-editor-embed/" class="typedoc-ignore">This documentation is best viewed on the documentation site rather than GitHub or NPM package site.</a> -->
 
 This is a React/JavaScript library for embedding micro:bit Python Editor as an iframe.
 
