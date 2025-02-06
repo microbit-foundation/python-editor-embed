@@ -8,25 +8,33 @@ It is intended to be used by other Micro:bit Educational Foundation projects
 that need to embed Python Editor and, when the API stabilises, to be useful to others
 who embed MakeCode.
 
-## Release process
+## License
 
-This project deploys releases to NPM CircleCI for version tags. (e.g. v1.0.0).
-This requires the `NPM_AUTH_TOKEN` environment variable to be available to the
-build.
+This software is under the MIT open source license.
 
-@next scoped releases are also pushed for builds on main.
+[SPDX-License-Identifier: MIT](LICENSE.md)
 
-As the project uses a scope, the published packages are private by default.
-To change this set the access to public when pushing (or in `.npmrc`).
+We use dependencies via the NPM registry as specified by the package.json file under common Open Source licenses.
 
-Distinct semver versions are generated for branches, so it is safe to extend
-the CI config to push all builds to NPM if this is helpful.
+The MakeCode/PXT types are derived from the [Microsoft MakeCode/PXT repository](https://github.com/Microsoft/pxt) as of 954d72b3a763608ca6f484807f511591ce48691a under a MIT license.
 
-Steps:
+Full details of each package can be found by running `license-checker`:
 
-1. Ensure main is up-to-date and has no local changes.
-1. Update CHANGELOG.md, moving content from unreleased to the new version.
-1. Tag the new version `git tag -a v1.0.0`. Use the changelog text as the
-   message.
-1. Push the new tag, `git push origin v1.0.0`.
-1. The CI build will push `@microbit-foundation/python-editor-embed@1.0.0`
+```bash
+$ npx license-checker --direct --summary --production
+```
+
+Omit the flags as desired to obtain more detail.
+
+## Code of Conduct
+
+Trust, partnership, simplicity and passion are our core values we live and
+breathe in our daily work life and within our projects. Our open-source
+projects are no exception. We have an active community which spans the globe
+and we welcome and encourage participation and contributions to our projects
+by everyone. We work to foster a positive, open, inclusive and supportive
+environment and trust that our community respects the micro:bit code of
+conduct. Please see our [code of conduct](https://microbit.org/safeguarding/)
+which outlines our expectations for all those that participate in our
+community and details on how to report any concerns and what would happen
+should breaches occur.
