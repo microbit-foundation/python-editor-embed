@@ -7,7 +7,7 @@ This is a React/JavaScript library for embedding micro:bit Python Editor as an i
 
 It is intended to be used by other Micro:bit Educational Foundation projects
 that need to embed Python Editor and, when the API stabilises, to be useful to others
-who embed MakeCode.
+who embed Python Editor.
 
 ## License
 
@@ -16,8 +16,6 @@ This software is under the MIT open source license.
 [SPDX-License-Identifier: MIT](LICENSE.md)
 
 We use dependencies via the NPM registry as specified by the package.json file under common Open Source licenses.
-
-The MakeCode/PXT types are derived from the [Microsoft MakeCode/PXT repository](https://github.com/Microsoft/pxt) as of 954d72b3a763608ca6f484807f511591ce48691a under a MIT license.
 
 Full details of each package can be found by running `license-checker`:
 

@@ -1,5 +1,5 @@
 import { PythonProjectV2, PythonProjectV3 } from './common';
-export type { PythonProject as EditorProject } from './common';
+export type { PythonProject, PythonProjectV2, PythonProjectV3 } from './common';
 import { fromByteArray } from 'base64-js';
 export { default as PythonEditor } from './PythonEditor';
 export type {
