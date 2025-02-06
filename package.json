@@ -32,7 +32,8 @@
     "preview": "vite preview",
     "ci:update-version": "update-ci-version",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build:storybook": "storybook build",
+    "docs": "typedoc"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -42,7 +43,8 @@
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "rxjs": ">=7.0.0",
-    "tslib": ">=2.0.0"
+    "tslib": ">=2.0.0",
+    "typedoc": "^0.27.6"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
@@ -50,7 +52,6 @@
     "@storybook/addon-essentials": "^8.0.5",
     "@storybook/addon-interactions": "^8.0.5",
     "@storybook/addon-links": "^8.0.5",
-    "@storybook/blocks": "^8.0.5",
     "@storybook/react": "^8.0.5",
     "@storybook/react-vite": "^8.0.5",
     "@storybook/test": "^8.0.5",

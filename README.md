@@ -1,8 +1,12 @@
-# React Editor Embed
+# Python Editor Embed
 
-## Introduction
+<a href="https://microbit-foundation.github.io/python-editor-embed/" class="typedoc-ignore">This documentation is best viewed on the documentation site rather than GitHub or NPM package site.</a>
 
-Components for embedding and controlling micro:bit code editors.
+This is a React/JavaScript library for embedding micro:bit Python Editor as an iframe.
+
+It is intended to be used by other Micro:bit Educational Foundation projects
+that need to embed Python Editor and, when the API stabilises, to be useful to others
+who embed MakeCode.
 
 ## Release process
 
