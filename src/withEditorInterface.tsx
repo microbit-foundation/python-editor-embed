@@ -5,7 +5,6 @@ import { PythonProject } from './common';
 export interface EditorProps {
   editorRef: Ref<HTMLIFrameElement>;
   url?: string;
-  hideMenu?: boolean;
   lang?: string;
   version?: string;
   controller?: 1 | 2;
@@ -19,34 +18,21 @@ type EditorConfig = {
   editor: string;
 };
 
-export enum CommonEditorMessageAction {
+export enum PythonEditorMessageAction {
   workspacesync = 'workspacesync',
   workspacesave = 'workspacesave',
   workspaceloaded = 'workspaceloaded',
   importproject = 'importproject',
-  stopsimulator = 'stopsimulator',
-  startsimulator = 'startsimulator',
-  restartsimulator = 'restartsimulator',
-  download = 'download',
 }
 
-export type EditorMessageAction = CommonEditorMessageAction;
-
 export interface EditorMessageEvent extends MessageEvent {
-  data: EditorMessageData;
+  data: IframeEditorMessageData;
   source: MessageEventSource | null;
 }
 
-export type EditorMessageData =
-  | IframeEditorMessageData
-  // These ones require controller=2
-  | { download: string; name: string }
-  | { save: string; name: string }
-  | { cmd: 'backtap' | 'backpress' };
-
 export type IframeEditorMessageData = {
   type: string;
-  action: EditorMessageAction;
+  action: PythonEditorMessageAction;
   response?: boolean;
   resp?: object;
   project?: PythonProject;
@@ -71,7 +57,7 @@ export type ResponseEmitterSubject = {
     | {
         resp: object;
       }
-    | EditorMessageData;
+    | IframeEditorMessageData;
 };
 
 export type Props = {
@@ -82,10 +68,6 @@ export type Props = {
    * MicrobitXYZ where XYZ is the product/feature.
    */
   controllerId: string;
-  onDownload?: (download: { hex: string; name: string }) => void;
-  onSave?: (save: { hex: string; name: string }) => void;
-  onBack?: () => void;
-  onBackLongPress?: () => void;
   onCodeChange?: (code: PythonProject) => void;
   initialCode: PythonProject;
   getWriter?: (writeFn: (code: PythonProject) => void) => void;
@@ -94,8 +76,6 @@ export type Props = {
   style?: React.CSSProperties;
   // Editor config
   version?: string;
-  // Editor config params used in url
-  hideMenu?: boolean;
   controller?: 1 | 2;
   lang?: string;
   queryParams?: Record<string, string>;
@@ -149,7 +129,7 @@ const withEditorInterface =
           this.editorRef.postMessage(
             {
               type: config.editor,
-              action: CommonEditorMessageAction.importproject,
+              action: PythonEditorMessageAction.importproject,
               project: code,
             },
             '*'
@@ -167,18 +147,18 @@ const withEditorInterface =
             return;
           }
           switch (data.action) {
-            case CommonEditorMessageAction.workspaceloaded:
+            case PythonEditorMessageAction.workspaceloaded:
               // Handle editor loaded
               break;
 
-            case CommonEditorMessageAction.workspacesave:
+            case PythonEditorMessageAction.workspacesave:
               if (typeof data.project === 'undefined') {
                 throw new Error('Missing project');
               }
               this.props.onCodeChange && this.props.onCodeChange(data.project);
               break;
 
-            case CommonEditorMessageAction.workspacesync:
+            case PythonEditorMessageAction.workspacesync:
               this.editorRef &&
                 this.editorRef.postMessage(
                   {
@@ -200,30 +180,12 @@ const withEditorInterface =
                 data,
               });
           }
-        } else if ('download' in data) {
-          this.props.onDownload?.({
-            name: data.name,
-            hex: data.download,
-          });
-        } else if ('save' in data) {
-          this.props.onSave?.({
-            name: data.name,
-            hex: data.save,
-          });
-        } else if ('cmd' in data) {
-          switch (data.cmd) {
-            case 'backtap':
-              return this.props.onBack?.();
-            case 'backpress':
-              return this.props.onBackLongPress?.();
-          }
         }
       };
 
       render(): JSX.Element {
         return (
           <Component
-            hideMenu={this.props.hideMenu}
             controller={this.props.controller}
             lang={this.props.lang}
             version={this.props.version}
