@@ -8,6 +8,7 @@ import {
 import { defaultPythonProject, multiFilePythonProject } from '../fixtures';
 import PythonEditorToolbar from '../PythonEditorToolbar';
 import StoryWrapper from '../StoryWrapper';
+import { controllerId } from '../config';
 
 interface StoryArgs {
   version?: string;
@@ -34,6 +35,7 @@ export default meta;
 type Story = StoryObj<StoryArgs>;
 
 const renderEditor = (args: StoryArgs) => {
+  const savedProjects = useRef<Map<string, PythonProject>>(new Map());
   const ref = useRef<PythonEditorFrameDriver | null>(null);
   const cbRef = (div: HTMLElement | null) => {
     if (!div) {
@@ -61,7 +63,10 @@ const renderEditor = (args: StoryArgs) => {
           args.project ? [args.project] : [defaultPythonProject],
         onWorkspaceLoaded: (e) => console.log('workspaceLoaded', e),
         onWorkspaceSync: (e) => console.log('workspaceSync', e),
-        onWorkspaceSave: (e) => console.log('onWorkspaceSave', e),
+        onWorkspaceSave: (e) => {
+          savedProjects.current.set(controllerId, e.project);
+          console.log(savedProjects);
+        },
       },
       () => iframe
     );

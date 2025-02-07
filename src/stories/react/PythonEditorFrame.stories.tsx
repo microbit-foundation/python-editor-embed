@@ -32,6 +32,7 @@ interface PythonEditorProps
 }
 
 const PythonEditor = ({ startingProject, ...props }: PythonEditorProps) => {
+  const savedProjects = useRef<Map<string, PythonProject>>(new Map());
   const ref = useRef<PythonEditorFrameDriver>(null);
   const initialProjects = useCallback(async () => {
     return [startingProject ?? defaultPythonProject];
@@ -41,7 +42,12 @@ const PythonEditor = ({ startingProject, ...props }: PythonEditorProps) => {
       <PythonEditorToolbar driver={ref} />
       <PythonEditorFrame
         ref={ref}
+        controllerId={controllerId}
         initialProjects={initialProjects}
+        onWorkspaceSave={(e) => {
+          savedProjects.current.set(controllerId, e.project);
+          console.log(savedProjects);
+        }}
         {...props}
       />
     </>
