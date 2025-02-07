@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import { PythonEditorFrameDriver } from '../python-editor-frame-driver';
+import { PythonEditorFrameDriver } from '../vanilla/python-editor-frame-driver';
 import React from 'react';
 import { defaultPythonProject } from './fixtures';
 

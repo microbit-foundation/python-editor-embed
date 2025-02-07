@@ -1,10 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React, { useCallback, useRef } from 'react';
-import { PythonProject } from '..';
-import PythonEditorFrame, {
-  PythonEditorFrameProps,
-} from '../PythonEditorFrame';
-import { PythonEditorFrameDriver } from '../python-editor-frame-driver';
+import { PythonProject } from '../react/index';
+import { PythonEditorFrame, PythonEditorFrameProps } from '../react/index';
+import { PythonEditorFrameDriver } from '../vanilla/python-editor-frame-driver';
 import StoryWrapper from './StoryWrapper';
 import { controllerId } from './config';
 import PythonEditorToolbar from './PythonEditorToolbar';

@@ -5,45 +5,14 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import { PythonProject } from './common';
+import { PythonEditorWorkspaceRequest, PythonProject } from '../vanilla/common';
 import {
-  EditorWorkspaceRequest,
+  createPythonEditorURL,
   Options,
   PythonEditorFrameDriver,
-} from './python-editor-frame-driver';
+} from '../vanilla/python-editor-frame-driver';
 
 const testSelector = 'python-editor-frame';
-
-const getPythonEditorBaseUrl = (version: string) => {
-  const parts = version.split('.');
-  if (parts[0] === '0' || parts[0] === '1' || parts[0] === '2') {
-    // Legacy version requiring the per version deployment.
-    const versionPart = encodeURIComponent(version.replace(/[.]/g, '-'));
-    return `https://python-editor-${versionPart}.microbit.org`;
-  }
-  return `https://python.microbit.org/v/${version}`;
-};
-
-const createPythonEditorURL = (
-  version: string,
-  lang: string | undefined,
-  controller: number | undefined,
-  queryParams: Record<string, string> | undefined
-) => {
-  const url = new URL(getPythonEditorBaseUrl(version));
-  if (lang) {
-    url.searchParams.set('l', lang);
-  }
-  if (controller) {
-    url.searchParams.set('controller', controller.toString());
-  }
-  if (queryParams) {
-    for (const [k, v] of Object.entries(queryParams)) {
-      url.searchParams.set(k, v);
-    }
-  }
-  return url.toString();
-};
 
 const styles: Record<string, React.CSSProperties> = {
   editor: {
@@ -66,9 +35,9 @@ export interface PythonEditorFrameProps
   initialProject: () => Promise<PythonProject[]>;
   controllerId?: string;
 
-  onWorkspaceLoaded?(event: EditorWorkspaceRequest): void;
-  onWorkspaceSync?(event: EditorWorkspaceRequest): void;
-  onWorkspaceSave?(event: EditorWorkspaceRequest): void;
+  onWorkspaceLoaded?(event: PythonEditorWorkspaceRequest): void;
+  onWorkspaceSync?(event: PythonEditorWorkspaceRequest): void;
+  onWorkspaceSave?(event: PythonEditorWorkspaceRequest): void;
 }
 
 const PythonEditorFrame = forwardRef<

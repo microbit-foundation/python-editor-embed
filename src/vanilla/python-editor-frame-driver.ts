@@ -1,4 +1,40 @@
-import { PythonProject } from './common';
+import {
+  ImportProjectOptions,
+  PythonEditorMessageRequest,
+  PythonEditorWorkspaceRequest,
+  PythonProject,
+} from './common';
+
+const getPythonEditorBaseUrl = (version: string) => {
+  const parts = version.split('.');
+  if (parts[0] === '0' || parts[0] === '1' || parts[0] === '2') {
+    // Legacy version requiring the per version deployment.
+    const versionPart = encodeURIComponent(version.replace(/[.]/g, '-'));
+    return `https://python-editor-${versionPart}.microbit.org`;
+  }
+  return `https://python.microbit.org/v/${version}`;
+};
+
+export const createPythonEditorURL = (
+  version: string,
+  lang: string | undefined,
+  controller: number | undefined,
+  queryParams: Record<string, string> | undefined
+) => {
+  const url = new URL(getPythonEditorBaseUrl(version));
+  if (lang) {
+    url.searchParams.set('l', lang);
+  }
+  if (controller) {
+    url.searchParams.set('controller', controller.toString());
+  }
+  if (queryParams) {
+    for (const [k, v] of Object.entries(queryParams)) {
+      url.searchParams.set(k, v);
+    }
+  }
+  return url.toString();
+};
 
 export interface Options {
   /**
@@ -17,36 +53,17 @@ export interface Options {
   /**
    * Called when the workspace is ready to sync.
    */
-  onWorkspaceSync?(event: EditorWorkspaceRequest): void;
+  onWorkspaceSync?(event: PythonEditorWorkspaceRequest): void;
 
   /**
    * Called when the workspace sync is complete.
    */
-  onWorkspaceLoaded?(event: EditorWorkspaceRequest): void;
+  onWorkspaceLoaded?(event: PythonEditorWorkspaceRequest): void;
 
   /**
    * Implement this to update the data store that `initialProjects` reads from.
    */
-  onWorkspaceSave?(event: EditorWorkspaceRequest): void;
-}
-
-export interface EditorWorkspaceRequest {
-  action: 'workspacesync' | 'workspacesave' | 'workspaceloaded';
-  project: PythonProject;
-  type: 'pyeditor';
-}
-
-export interface ImportProjectOptions {
-  // project to load
-  project: PythonProject;
-}
-
-export interface EditorMessageImportProjectRequest
-  extends ImportProjectOptions {
-  type: 'pyeditor';
-  action: 'importproject';
-  response?: boolean;
-  id?: string;
+  onWorkspaceSave?(event: PythonEditorWorkspaceRequest): void;
 }
 
 export class PythonEditorFrameDriver {
@@ -122,13 +139,19 @@ export class PythonEditorFrameDriver {
     this.handleWorkspaceSync(data);
     switch (data.action) {
       case 'workspacesave': {
-        return this.options.onWorkspaceSave?.(data as EditorWorkspaceRequest);
+        return this.options.onWorkspaceSave?.(
+          data as PythonEditorWorkspaceRequest
+        );
       }
       case 'workspacesync': {
-        return this.options.onWorkspaceSync?.(data as EditorWorkspaceRequest);
+        return this.options.onWorkspaceSync?.(
+          data as PythonEditorWorkspaceRequest
+        );
       }
       case 'workspaceloaded': {
-        return this.options.onWorkspaceLoaded?.(data as EditorWorkspaceRequest);
+        return this.options.onWorkspaceLoaded?.(
+          data as PythonEditorWorkspaceRequest
+        );
       }
     }
   };
@@ -145,7 +168,7 @@ export class PythonEditorFrameDriver {
   }
 
   private sendRequest = (
-    message: EditorMessageImportProjectRequest
+    message: PythonEditorMessageRequest
   ): Promise<unknown> => {
     message.response = true;
     if (!message.id) {
@@ -171,7 +194,7 @@ export class PythonEditorFrameDriver {
     this.iframe()?.contentWindow?.postMessage(message, '*');
   };
 
-  private async handleWorkspaceSync(event: EditorWorkspaceRequest) {
+  private async handleWorkspaceSync(event: PythonEditorWorkspaceRequest) {
     try {
       if (event.action === 'workspacesync') {
         const projects = await this.options.initialProject();
