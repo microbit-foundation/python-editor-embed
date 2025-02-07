@@ -3,7 +3,7 @@ import {
   PythonEditorMessageRequest,
   PythonEditorWorkspaceRequest,
   PythonProject,
-} from './common';
+} from './common.js';
 
 const getPythonEditorBaseUrl = (version: string) => {
   const parts = version.split('.');

@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from '@storybook/react';
-import React, { useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import {
   PythonEditorFrame,
   PythonEditorFrameDriver,
   PythonEditorFrameProps,
   PythonProject,
-} from '../../react/index';
-import PythonEditorToolbar from '../PythonEditorToolbar';
-import StoryWrapper from '../StoryWrapper';
-import { controllerId } from '../config';
-import { defaultPythonProject, multiFilePythonProject } from '../fixtures';
+} from '../../react/index.js';
+import PythonEditorToolbar from '../PythonEditorToolbar.js';
+import StoryWrapper from '../StoryWrapper.js';
+import { controllerId } from '../config.js';
+import { defaultPythonProject, multiFilePythonProject } from '../fixtures.js';
 
 const meta: Meta<typeof PythonEditorFrame> = {
   component: PythonEditorFrame,

@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import {
   PythonEditorFrameDriver,
   PythonProject,
   createPythonEditorURL,
-} from '../../vanilla/index';
-import { defaultPythonProject, multiFilePythonProject } from '../fixtures';
-import PythonEditorToolbar from '../PythonEditorToolbar';
-import StoryWrapper from '../StoryWrapper';
-import { controllerId } from '../config';
+} from '../../vanilla/index.js';
+import { controllerId } from '../config.js';
+import { defaultPythonProject, multiFilePythonProject } from '../fixtures.js';
+import PythonEditorToolbar from '../PythonEditorToolbar.js';
+import StoryWrapper from '../StoryWrapper.js';
 
 interface StoryArgs {
   version?: string;

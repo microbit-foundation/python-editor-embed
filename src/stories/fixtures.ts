@@ -1,5 +1,5 @@
-import { PythonProjectV2, PythonProjectV3 } from '../common';
 import { fromByteArray } from 'base64-js';
+import { PythonProjectV2, PythonProjectV3 } from '../vanilla/index.js';
 
 export const defaultPythonProject: PythonProjectV2 =
   "# Add your Python code here. E.g.\nfrom microbit import *\n\n\nwhile True:\n    display.scroll('Hello, World!')\n    display.show(Image.HEART)\n    sleep(2000)\n";

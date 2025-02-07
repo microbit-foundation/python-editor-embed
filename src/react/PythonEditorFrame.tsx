@@ -5,12 +5,15 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import { PythonEditorWorkspaceRequest, PythonProject } from '../vanilla/common';
+import {
+  PythonEditorWorkspaceRequest,
+  PythonProject,
+} from '../vanilla/common.js';
 import {
   createPythonEditorURL,
   Options,
   PythonEditorFrameDriver,
-} from '../vanilla/python-editor-frame-driver';
+} from '../vanilla/python-editor-frame-driver.js';
 
 const testSelector = 'python-editor-frame';
 

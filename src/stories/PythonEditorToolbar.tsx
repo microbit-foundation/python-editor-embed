@@ -1,7 +1,6 @@
 import { RefObject } from 'react';
-import { PythonEditorFrameDriver } from '../vanilla/python-editor-frame-driver';
-import React from 'react';
-import { defaultPythonProject } from './fixtures';
+import { PythonEditorFrameDriver } from '../vanilla/python-editor-frame-driver.js';
+import { defaultPythonProject } from './fixtures.js';
 
 const toolbarRowStyle = {
   fontFamily: 'sans-serif',
