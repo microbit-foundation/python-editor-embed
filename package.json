@@ -1,6 +1,6 @@
 {
   "name": "@microbit-foundation/python-editor-embed",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "keywords": [],
   "type": "module",
@@ -15,14 +15,14 @@
     "node": ">=20",
     "npm": ">=10"
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+    "./vanilla": {
+      "import": "./dist/vanilla/index.js",
+      "types": "./dist/vanilla/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react/index.js",
+      "types": "./dist/react/index.d.ts"
     }
   },
   "scripts": {
@@ -39,6 +39,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
+    "base64-js": "^1.5.1",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "tslib": ">=2.0.0",
