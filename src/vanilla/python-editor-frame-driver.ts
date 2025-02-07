@@ -18,7 +18,7 @@ const getPythonEditorBaseUrl = (version: string) => {
 export const createPythonEditorURL = (
   version: string,
   lang: string | undefined,
-  controller: number | undefined,
+  controller: 1 | 2 | undefined,
   queryParams: Record<string, string> | undefined
 ) => {
   const url = new URL(getPythonEditorBaseUrl(version));
@@ -43,7 +43,7 @@ export interface Options {
    * This will also be used if the iframe reloads itself.
    *
    */
-  initialProject: () => Promise<PythonProject[]>;
+  initialProjects: () => Promise<PythonProject[]>;
 
   /**
    * Set this to a value representing your app.
@@ -197,7 +197,7 @@ export class PythonEditorFrameDriver {
   private async handleWorkspaceSync(event: PythonEditorWorkspaceRequest) {
     try {
       if (event.action === 'workspacesync') {
-        const projects = await this.options.initialProject();
+        const projects = await this.options.initialProjects();
         this.sendMessageNoReadyCheck({
           ...event,
           success: true,

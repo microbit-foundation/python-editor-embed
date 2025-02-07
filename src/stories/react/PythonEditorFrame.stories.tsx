@@ -1,12 +1,15 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React, { useCallback, useRef } from 'react';
-import { PythonProject } from '../react/index';
-import { PythonEditorFrame, PythonEditorFrameProps } from '../react/index';
-import { PythonEditorFrameDriver } from '../vanilla/python-editor-frame-driver';
-import StoryWrapper from './StoryWrapper';
-import { controllerId } from './config';
-import PythonEditorToolbar from './PythonEditorToolbar';
-import { defaultPythonProject, multiFilePythonProject } from './fixtures';
+import {
+  PythonEditorFrame,
+  PythonEditorFrameDriver,
+  PythonEditorFrameProps,
+  PythonProject,
+} from '../../react/index';
+import PythonEditorToolbar from '../PythonEditorToolbar';
+import StoryWrapper from '../StoryWrapper';
+import { controllerId } from '../config';
+import { defaultPythonProject, multiFilePythonProject } from '../fixtures';
 
 const meta: Meta<typeof PythonEditorFrame> = {
   component: PythonEditorFrame,
@@ -24,19 +27,23 @@ export default meta;
 type Story = StoryObj<typeof PythonEditorFrame>;
 
 interface PythonEditorProps
-  extends Omit<PythonEditorFrameProps, 'initialProject'> {
+  extends Omit<PythonEditorFrameProps, 'initialProjects'> {
   startingProject?: PythonProject;
 }
 
 const PythonEditor = ({ startingProject, ...props }: PythonEditorProps) => {
   const ref = useRef<PythonEditorFrameDriver>(null);
-  const initialProject = useCallback(async () => {
+  const initialProjects = useCallback(async () => {
     return [startingProject ?? defaultPythonProject];
   }, [startingProject]);
   return (
     <>
       <PythonEditorToolbar driver={ref} />
-      <PythonEditorFrame ref={ref} initialProject={initialProject} {...props} />
+      <PythonEditorFrame
+        ref={ref}
+        initialProjects={initialProjects}
+        {...props}
+      />
     </>
   );
 };

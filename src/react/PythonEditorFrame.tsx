@@ -32,7 +32,7 @@ export interface PythonEditorFrameProps
   lang?: string;
   controller?: 1 | 2;
   queryParams?: Record<string, string>;
-  initialProject: () => Promise<PythonProject[]>;
+  initialProjects: () => Promise<PythonProject[]>;
   controllerId?: string;
 
   onWorkspaceLoaded?(event: PythonEditorWorkspaceRequest): void;
@@ -51,7 +51,7 @@ const PythonEditorFrame = forwardRef<
     controllerId,
     style,
     queryParams,
-    initialProject,
+    initialProjects,
     onWorkspaceLoaded,
     onWorkspaceSave,
     onWorkspaceSync,
@@ -59,7 +59,7 @@ const PythonEditorFrame = forwardRef<
   const src = createPythonEditorURL(version, lang, controller, queryParams);
   const options = useMemo(
     () => ({
-      initialProject,
+      initialProjects,
       controllerId,
       onWorkspaceLoaded,
       onWorkspaceSave,
@@ -67,7 +67,7 @@ const PythonEditorFrame = forwardRef<
     }),
     [
       controllerId,
-      initialProject,
+      initialProjects,
       onWorkspaceLoaded,
       onWorkspaceSave,
       onWorkspaceSync,
