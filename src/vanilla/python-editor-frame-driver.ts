@@ -38,7 +38,7 @@ export const createPythonEditorURL = (
 
 export interface Options {
   /**
-   * A function that provides the initial set of projects to be used when initialising MakeCode.
+   * A function that provides the initial set of projects to be used.
    *
    * This will also be used if the iframe reloads itself.
    *

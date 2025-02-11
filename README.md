@@ -7,7 +7,7 @@ This is a React/JavaScript library for embedding micro:bit Python Editor as an i
 It is intended to be used by other Micro:bit Educational Foundation projects
 that need to embed Python Editor and, when the API stabilises, to be useful to others who embed Python Editor.
 
-- [StoryBook demo of the components](https://makecode-embed.pages.dev/) <-- TODO: Deploy and add link for StoryBook demo
+- [StoryBook demo of the components](https://python-editor-embed.pages.dev/)
 
 ## Usage
 

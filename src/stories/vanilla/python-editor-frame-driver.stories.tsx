@@ -19,7 +19,7 @@ interface StoryArgs {
 }
 
 const meta: Meta<StoryArgs> = {
-  title: 'stories/VanillaJS/makeCodeFrameDriver',
+  title: 'stories/VanillaJS/pythonEditorFrameDriver',
   argTypes: {
     version: {
       options: ['2.0.0', '2.2.2', '3', 'beta'],
