@@ -38,9 +38,10 @@ const driverRef = new PythonEditorFrameDriver(
   {
     controllerId: 'YOUR APP NAME HERE',
     initialProjects: async () => [pythonProject],
-    onWorkspaceLoaded: (e) => console.log('Workspace loaded'),
-    onWorkspaceSync: (e) => console.log('Workspace ready to sync'),
-    onWorkspaceSave: (e) => console.log('Workspace save'),
+    onWorkspaceSave: (e) => {
+      // Set project as project changes in the editor.
+      setSavedProject(e.project);
+    },
   },
   () => iframe
 );
