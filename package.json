@@ -15,14 +15,39 @@
     "node": ">=20",
     "npm": ">=10"
   },
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "typings": "./dist/esm/index.d.ts",
   "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    },
     "./vanilla": {
-      "import": "./dist/vanilla/index.js",
-      "types": "./dist/vanilla/index.d.ts"
+      "import": {
+        "types": "./dist/esm/vanilla/index.d.ts",
+        "default": "./dist/esm/vanilla/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/vanilla/index.d.ts",
+        "default": "./dist/cjs/vanilla/index.js"
+      }
     },
     "./react": {
-      "import": "./dist/react/index.js",
-      "types": "./dist/react/index.d.ts"
+      "import": {
+        "types": "./dist/esm/react/index.d.ts",
+        "default": "./dist/esm/react/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/react/index.d.ts",
+        "default": "./dist/cjs/react/index.js"
+      }
     }
   },
   "scripts": {
