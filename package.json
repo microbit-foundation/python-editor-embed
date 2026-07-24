@@ -11,6 +11,10 @@
     "type": "git",
     "url": "https://github.com/microbit-foundation/python-editor-embed"
   },
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
   "allowScripts": {
     "fsevents": true,
     "esbuild": true
