@@ -121,8 +121,13 @@ export class PythonEditorFrameDriver {
     if (!expectedOrigin || event.origin !== expectedOrigin) {
       return;
     }
-    const { data } = event;
-    if (typeof data !== 'object') {
+    // The superset of fields we discriminate on before casting messages to
+    // their specific types.
+    const data = event.data as {
+      type?: string;
+      action?: string;
+    } | null;
+    if (typeof data !== 'object' || data === null) {
       return;
     }
 
@@ -136,7 +141,7 @@ export class PythonEditorFrameDriver {
       return;
     }
 
-    this.handleWorkspaceSync(data);
+    void this.handleWorkspaceSync(data as PythonEditorWorkspaceRequest);
     switch (data.action) {
       case 'workspacesave': {
         return this.options.onWorkspaceSave?.(

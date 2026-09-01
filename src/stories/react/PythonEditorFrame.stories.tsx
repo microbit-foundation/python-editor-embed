@@ -34,9 +34,10 @@ interface PythonEditorProps
 const PythonEditor = ({ startingProject, ...props }: PythonEditorProps) => {
   const savedProjects = useRef<Map<string, PythonProject>>(new Map());
   const ref = useRef<PythonEditorFrameDriver>(null);
-  const initialProjects = useCallback(async () => {
-    return [startingProject ?? defaultPythonProject];
-  }, [startingProject]);
+  const initialProjects = useCallback(
+    () => Promise.resolve([startingProject ?? defaultPythonProject]),
+    [startingProject]
+  );
   return (
     <>
       <PythonEditorToolbar driver={ref} />

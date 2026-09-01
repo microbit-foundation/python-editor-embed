@@ -59,8 +59,10 @@ const renderEditor = (args: StoryArgs) => {
     // Create and initialise an instance of PythonEditorFrameDriver.
     ref.current = new PythonEditorFrameDriver(
       {
-        initialProjects: async () =>
-          args.project ? [args.project] : [defaultPythonProject],
+        initialProjects: () =>
+          Promise.resolve(
+            args.project ? [args.project] : [defaultPythonProject]
+          ),
         onWorkspaceLoaded: (e) => console.log('workspaceLoaded', e),
         onWorkspaceSync: (e) => console.log('workspaceSync', e),
         onWorkspaceSave: (e) => {
